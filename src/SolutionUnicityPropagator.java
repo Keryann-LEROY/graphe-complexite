@@ -12,32 +12,37 @@ import java.util.List;
 
 public class SolutionUnicityPropagator extends Propagator<BoolVar> {
 
+
     private List<Integer> desiredSolution;
     private SudokuMetadata sudoku;
 
     private BoolVar[] assignmentVars;
+    private boolean undecPlaceholderIs1;
+    private boolean onCompleteAssignment;
 
-    public SolutionUnicityPropagator(List<Integer> desiredSolution, SudokuMetadata sudoku, BoolVar[] assignmentVars) {
-        super(assignmentVars, PropagatorPriority.VERY_SLOW,false);
+
+    public SolutionUnicityPropagator(List<Integer> desiredSolution, SudokuMetadata sudoku, BoolVar[] assignmentVars,boolean undecPlaceholderIs1,boolean onCompleteAssignment) {
+        super(assignmentVars, PropagatorPriority.VERY_SLOW, false);
         this.desiredSolution = desiredSolution;
         this.sudoku = sudoku;
         this.assignmentVars = assignmentVars;
+        this.undecPlaceholderIs1=undecPlaceholderIs1;
+        this.onCompleteAssignment=onCompleteAssignment;
     }
-
 
 
     @Override
     public void propagate(int i) throws ContradictionException {
-        boolean completeAssignment= true;
-        /*
-        for (BoolVar var: assignmentVars){
-            if(!var.isInstantiated())
-                completeAssignment=false;
+        boolean completeAssignment = true;
+        if(onCompleteAssignment){
+            for (BoolVar assignmentVar : assignmentVars) {
+                if (!assignmentVar.isInstantiated())
+                    completeAssignment=false;
+            }
         }
-         */
         if(completeAssignment) {
             List<IntVar> vars = new ArrayList<>();
-            Model model = MinimalGridGenerator.configureSudoku(sudoku, vars, desiredSolution, assignmentVars);
+            Model model = MinimalGridGenerator.configureSudoku(sudoku, vars, applyMask(desiredSolution, assignmentVars));
             Solver solver = model.getSolver();
             //cherche une premiere solution.
             solver.solve();
@@ -46,22 +51,24 @@ public class SolutionUnicityPropagator extends Propagator<BoolVar> {
                 fails();
             }
         }
-
     }
 
     @Override
     public ESat isEntailed() {
-        ESat retour=ESat.TRUE;
-        List<IntVar> vars = new ArrayList<>();
-        Model model = MinimalGridGenerator.configureSudoku(sudoku,vars,desiredSolution,assignmentVars);
-        Solver solver= model.getSolver();
-        if(!solver.solve()){
-            retour=ESat.FALSE;
-        }
-
-        if(solver.solve()){
-            retour=ESat.FALSE;
-        }
+        ESat retour = ESat.UNDEFINED;
         return retour;
+    }
+
+    public List<Integer> applyMask(List<Integer> values, BoolVar[] mask) {
+        List<Integer> newValues = new ArrayList<>();
+        for (int i = 0; i < values.size(); i++) {
+            if (mask[i].isInstantiatedTo(0))
+                newValues.add(-1);
+            else if(mask[i].isInstantiatedTo(1) || undecPlaceholderIs1)
+                newValues.add(values.get(i));
+            else
+                newValues.add(-1);
+        }
+        return newValues;
     }
 }

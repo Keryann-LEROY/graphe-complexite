@@ -29,10 +29,10 @@ public class MinimalGridGenerator {
         return newValues;
     }
 
-    public static Model configureSudoku(SudokuMetadata sudoku, List<IntVar> generatedVars, List<Integer> values, BoolVar[] mask){
-
-        return configureSudoku(sudoku,generatedVars,applyMask(values,mask));
-    }
+//    public static Model configureSudoku(SudokuMetadata sudoku, List<IntVar> generatedVars, List<Integer> values, BoolVar[] mask){
+//
+//        return configureSudoku(sudoku,generatedVars,applyMask(values,mask));
+//    }
 
     public static Model configureSudoku(SudokuMetadata sudoku, List<IntVar> generatedVars){
         List<Integer> values=new ArrayList<>();
@@ -101,68 +101,12 @@ public class MinimalGridGenerator {
         System.out.println(sudoku.arrange(desiredSolution,2,'.'));
         System.out.println("Elapsed Time: "+initialSolutionDuration);
 
+        //set the resolution methode
+        //OptimalSudokuSolver  solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
+        OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
 
-        //cré un model d'assiqnation de variables booléennes (autant que de variable dans le sudoku)
-        Model nbBlankMaximizationModel = new Model();
-        BoolVar[] assignmentvars = nbBlankMaximizationModel.boolVarArray(sudoku.getNodes().size());
-
-        // compte le nombre de false dans assignmentvars.(variable a maximiser)
-
-        IntVar nbBlank = nbBlankMaximizationModel.intVar("nbBlank", 0, assignmentvars.length);
-        nbBlankMaximizationModel.count(0,assignmentvars,nbBlank).post();
-        nbBlankMaximizationModel.setObjective(true,nbBlank);
-
-        // definition de la contrainte d'unicité de la solution du sudoku,
-        Propagator<BoolVar> solutionUnicityPropagator = new SolutionUnicityPropagator(desiredSolution,sudoku,assignmentvars);
-        Constraint solutionUnicityConstraint = new Constraint("uniqueSolutionSudoku", solutionUnicityPropagator);
-        nbBlankMaximizationModel.post(solutionUnicityConstraint);
-
-
-
-        Solver solver = nbBlankMaximizationModel.getSolver();
-
-        solver.setSearch(Search.intVarSearch(new Random<IntVar>(System.nanoTime()), new IntDomainMin(),assignmentvars));
-
-
-        // resoudre pour le nombre d'indice minimal.
-        List<Integer> solution=new ArrayList<>();
-        long Start = System.nanoTime();
-        long End = System.nanoTime();
-        double Duration = (End - Start)* Math.pow(10,-9);
-        while (solver.solve()){
-            solution = applyMask(desiredSolution,assignmentvars);
-            int nbFixed =0;
-            int nbFree =0;
-            int nbUndec =0;
-            for (int i = 0; i < assignmentvars.length; i++) {
-                if(!assignmentvars[i].isInstantiated())
-                    nbUndec++;
-                else if (assignmentvars[i].isInstantiatedTo(0))
-                    nbFree++;
-                else if (assignmentvars[i].isInstantiatedTo(1))
-                    nbFixed++;
-            }
-            System.out.println();
-            System.out.println("nbBlank: "+nbBlank.getValue());
-            System.out.println("nbFixed: "+nbFixed);
-            System.out.println("nbFree: "+nbFree);
-            System.out.println("nbUndec: "+nbUndec);
-            System.out.println(sudoku.arrange(solution,2,'.'));
-            End = System.nanoTime();
-            Duration = (End - Start)* Math.pow(10,-9);
-            System.out.println("Elapsed Time: "+Duration);
-        }
-
-
-
-
-
-        End = System.nanoTime();
-        Duration = (End - Start)* Math.pow(10,-9);
-
-        System.out.println("Solution:");
-        System.out.println(sudoku.arrange(solution,2,'.'));
-        System.out.println("Elapsed Time: "+Duration);
+        //use the resolution methode
+        List<Integer> solution = solver.solve();
 
         //
         List<IntVar> validationVars = new ArrayList<>();
