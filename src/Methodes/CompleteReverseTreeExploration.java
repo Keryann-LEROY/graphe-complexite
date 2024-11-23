@@ -1,3 +1,5 @@
+package Methodes;
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.Constraint;
@@ -7,6 +9,8 @@ import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMin;
 import org.chocosolver.solver.search.strategy.selectors.variables.Random;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
+import utils.SolutionUnicityPropagator;
+import utils.SudokuMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +20,7 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
     private Model nbBlankMaximizationModel;
     private BoolVar[] assignmentvars;
     private IntVar nbBlank;
-    private Propagator<BoolVar> solutionUnicityPropagator;
+    private SolutionUnicityPropagator solutionUnicityPropagator;
     private Constraint solutionUnicityConstraint;
     private Solver solver;
     private SudokuMetadata sudoku;
@@ -38,7 +42,7 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
 
         // definition de la contrainte d'unicité de la solution du sudoku,
         solutionUnicityPropagator = new SolutionUnicityPropagator(desiredSolution, sudoku, assignmentvars,
-                true,false);
+                true,true);
         solutionUnicityConstraint = new Constraint("uniqueSolutionSudoku", solutionUnicityPropagator);
         nbBlankMaximizationModel.post(solutionUnicityConstraint);
 
@@ -56,7 +60,7 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
         double Duration = (End - Start) * Math.pow(10, -9);
 
         while (solver.solve()) { // retoune true si le solveur a trouver une solution meilleur que toutes les precedentes. false
-            solution = MinimalGridGenerator.applyMask(desiredSolution, assignmentvars);
+            solution = solutionUnicityPropagator.applyMask(desiredSolution, assignmentvars);
             int nbFixed = 0;
             int nbFree = 0;
             int nbUndec = 0;
