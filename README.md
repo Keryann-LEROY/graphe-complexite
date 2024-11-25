@@ -38,13 +38,13 @@ Le projet contient plusieurs fichiers et classes organisés dans les dossiers su
    ```bash
    git clone <URL-du-repo>
 2. Choisissez la méthode de résolution à utiliser en modifiant cette ligne :
- ```java
- OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku, desiredSolution);
- ```
- ou :
- ```java
- OptimalSudokuSolver solver = new CompleteIcrementalSearch(sudoku, desiredSolution);
- ```
+    ```java
+    OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku, desiredSolution);
+    ```
+    ou :
+    ```java
+    OptimalSudokuSolver solver = new CompleteIcrementalSearch(sudoku, desiredSolution);
+    ```
 3. Exécutez la méthode `main` pour générer la grille de Sudoku minimale et valider les solutions.
 
 ### Étape 4 : Résultat
@@ -76,8 +76,3 @@ Has Two Solutions: false
 Elapsed Time: 1.234s
 ```
 
-## Contributions
-Les contributions sont les bienvenues ! Veuillez ouvrir une issue ou une pull request pour proposer des améliorations ou signaler des problèmes.
-
-## Licence
-Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, le modifier et le distribuer sous les termes de cette licence.
