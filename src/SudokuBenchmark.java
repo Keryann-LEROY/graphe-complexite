@@ -1,7 +1,4 @@
-import Methodes.CompleteIcrementalSearch;
-import Methodes.CompleteReverseTreeExploration;
-import Methodes.IncompleteHeuristicDrivenRandomSearch;
-import Methodes.OptimalSudokuSolver;
+import Methodes.*;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.nary.nvalue.amnv.mis.F;
@@ -71,7 +68,7 @@ public class SudokuBenchmark {
         //set the resolution methode
 
         // CompleteReverseTreeExploration
-        //methodes.add( new CompleteReverseTreeExploration(sudoku,desiredSolution));
+        methodes.add( new CompleteReverseTreeExploration(sudoku,desiredSolution));
 
         // CompleteReverseTreeExploration with time limit
         OptimalSudokuSolver methode = new CompleteReverseTreeExploration(sudoku,desiredSolution);
@@ -79,10 +76,13 @@ public class SudokuBenchmark {
         methodes.add( methode);
 
         //CompleteIcrementalSearch
-        //methodes.add( new CompleteIcrementalSearch(sudoku,desiredSolution));
+        methodes.add( new CompleteIcrementalSearch(sudoku,desiredSolution));
 
         //IncompleteHeuristicDrivenRandomSearch
         methodes.add(new IncompleteHeuristicDrivenRandomSearch(sudoku,desiredSolution, timelimit));
+
+        //LargeNeighborhoodSearch
+        methodes.add(new LargeNeighborhoodSearch(sudoku, desiredSolution));
 
 
 
@@ -107,7 +107,7 @@ public class SudokuBenchmark {
 
     public static void main(String[] args) throws IOException {
         for (int i = 0; i < 20; i++) {
-            test(3,2,Duration.ofSeconds(10));
+            test(5,1,Duration.ofSeconds(2));
         }
 
 
