@@ -1,6 +1,4 @@
-import Methodes.CompleteIcrementalSearch;
-import Methodes.CompleteReverseTreeExploration;
-import Methodes.OptimalSudokuSolver;
+import Methodes.*;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.search.strategy.Search;
@@ -17,7 +15,7 @@ public class MinimalGridGenerator {
     public static void main(String[] args) {
 
         // Trouve une solution initial par recherche aléatoire. (contraintes de structure sans contraintes d'indices )
-        SudokuMetadata sudoku = new SudokuMetadata(3,2);
+        SudokuMetadata sudoku = new SudokuMetadata(5,1);
         List<IntVar> initialSolutionVars = new ArrayList<>();
         Model initialModel = SudokuModelConfigHelpers.configureSudoku(sudoku,initialSolutionVars);
         Solver initialSolver = initialModel.getSolver();
@@ -44,13 +42,13 @@ public class MinimalGridGenerator {
         System.out.println("Elapsed Time: "+initialSolutionDuration);
 
         //set the resolution methode
-        //OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
-        OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
+        // OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
+        // OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
+        OptimalSudokuSolver solver = new LargeNeighborhoodSearch(sudoku, desiredSolution);
 
         //use the resolution methode
         List<Integer> solution = solver.solve();
 
-        //
         List<IntVar> validationVars = new ArrayList<>();
         Model validationModel = SudokuModelConfigHelpers.configureSudoku(sudoku,validationVars,solution);
         Solver validationSolver = validationModel.getSolver();
@@ -61,12 +59,8 @@ public class MinimalGridGenerator {
         }
         validationSolver.setSearch(Search.randomSearch(validationVarsArray,System.currentTimeMillis()));
 
-
         System.out.println("Has One Solution: "+ validationSolver.solve());
         System.out.println("Has Two Solution: "+ validationSolver.solve());
-
-
-
 
     }
 }
