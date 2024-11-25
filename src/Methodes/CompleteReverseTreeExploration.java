@@ -4,15 +4,21 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.constraints.Propagator;
+import org.chocosolver.solver.search.limits.NodeCounter;
+import org.chocosolver.solver.search.limits.TimeCounter;
 import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMin;
 import org.chocosolver.solver.search.strategy.selectors.variables.Random;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
+import utils.ColRowGroupOccurenceVariableSelector;
+import utils.SolutionData;
 import utils.SolutionUnicityPropagator;
 import utils.SudokuMetadata;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
@@ -26,10 +32,16 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
     private SudokuMetadata sudoku;
     private List<Integer> desiredSolution;
 
+    private List<SolutionData> solutionsFound= new ArrayList<>();
+
     public CompleteReverseTreeExploration(SudokuMetadata sudoku, List<Integer> desiredSolution) {
 
         this.sudoku = sudoku;
         this.desiredSolution = desiredSolution;
+        resetModel();
+    }
+
+    public void resetModel(){
         //cré un model d'assiqnation de variables booléennes (autant que de variable dans le sudoku)
         nbBlankMaximizationModel = new Model();
         assignmentvars = nbBlankMaximizationModel.boolVarArray(sudoku.getNodes().size());
@@ -49,7 +61,7 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
 
         solver = nbBlankMaximizationModel.getSolver();
 
-        solver.setSearch(Search.intVarSearch(new Random<IntVar>(System.nanoTime()), new IntDomainMin(), assignmentvars));
+        solver.setSearch(Search.intVarSearch(new ColRowGroupOccurenceVariableSelector(sudoku,assignmentvars,1,System.nanoTime()), new IntDomainMin(), assignmentvars));
     }
 
     public List<Integer> solve() {
@@ -81,16 +93,38 @@ public class CompleteReverseTreeExploration implements OptimalSudokuSolver {
             End = System.nanoTime();
             Duration = (End - Start) * Math.pow(10, -9);
             System.out.println("Elapsed Time: " + Duration);
+            solutionsFound.add(new SolutionData(nbFixed,solution,Duration,sudoku,desiredSolution));
         }
 
+        solutionsFound.sort(Comparator.comparingInt(SolutionData::getNbClues));
+        solution = solutionsFound.getFirst().getSolution();
 
         End = System.nanoTime();
         Duration = (End - Start) * Math.pow(10, -9);
+
+        for(SolutionData data : solutionsFound){
+            data.setTimeEnd(Duration);
+        }
 
         System.out.println("Solution:");
         System.out.println(sudoku.arrange(solution, 2, '.'));
         System.out.println("Elapsed Time: " + Duration);
 
         return solution;
+    }
+
+    @Override
+    public List<SolutionData> getSolutionData() {
+        return solutionsFound;
+    }
+
+    @Override
+    public void SetTimeLimit(Duration timeLimit) {
+        solver.addStopCriterion(new TimeCounter(solver,timeLimit.toNanos()));
+    }
+
+
+    public void SetNodeLimit(long nodeCount) {
+        solver.addStopCriterion(new NodeCounter(solver,nodeCount));
     }
 }

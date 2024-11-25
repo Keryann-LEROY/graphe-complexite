@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ef69d90-1b6d-4c35-b9b4-c2defc4e5185" name="Changes" comment="solver Sudoku Fonctionnel">
-      <change afterPath="$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/SudokuModelConfigHelpers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SudokuBenchmark.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/ColRowGroupOccurenceVariableSelector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/SolutionData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompleteIcrementalSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CompleteReverseTreeExploration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteReverseTreeExploration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methodes/CompleteReverseTreeExploration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteReverseTreeExploration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methodes/OptimalSudokuSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/OptimalSudokuSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinimalGridGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalGridGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OptimalSudokuSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/OptimalSudokuSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SolutionUnicityPropagator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SolutionUnicityPropagator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SudokuMetadata.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SudokuMetadata.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +46,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.MinimalGridGenerator.executor": "Run",
+    "Application.SudokuBenchmark.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -67,7 +68,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SudokuBenchmark">
     <configuration name="MinimalGridGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MinimalGridGenerator" />
       <module name="SudokuProject" />
@@ -75,8 +81,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SudokuBenchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SudokuBenchmark" />
+      <module name="SudokuProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SudokuBenchmark" />
         <item itemvalue="Application.MinimalGridGenerator" />
       </list>
     </recent_temporary>
@@ -99,7 +113,7 @@
       <workItem from="1729175901603" duration="60000" />
       <workItem from="1729176494035" duration="19141000" />
       <workItem from="1729598425540" duration="16559000" />
-      <workItem from="1732217820057" duration="8230000" />
+      <workItem from="1732217820057" duration="38176000" />
     </task>
     <task id="LOCAL-00001" summary="solver Sudoku Fonctionnel">
       <option name="closed" value="true" />
@@ -123,24 +137,34 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/utils/SolutionUnicityPropagator.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/utils/SolutionUnicityPropagator.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/utils/SolutionUnicityPropagator.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/utils/SolutionUnicityPropagator.java</url>
+          <url>file://$PROJECT_DIR$/src/utils/SolutionData.java</url>
           <line>94</line>
-          <option name="timeStamp" value="12" />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/SudokuBenchmark.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/SudokuBenchmark.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/SudokuBenchmark.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

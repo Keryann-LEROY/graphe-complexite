@@ -1,5 +1,6 @@
 import Methodes.CompleteIcrementalSearch;
 import Methodes.CompleteReverseTreeExploration;
+import Methodes.IncompleteHeuristicDrivenRandomSearch;
 import Methodes.OptimalSudokuSolver;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
@@ -9,6 +10,8 @@ import org.chocosolver.solver.variables.IntVar;
 import utils.SudokuMetadata;
 import utils.SudokuModelConfigHelpers;
 
+import java.sql.Time;
+import java.time.Duration;
 import java.util.*;
 
 public class MinimalGridGenerator {
@@ -17,7 +20,7 @@ public class MinimalGridGenerator {
     public static void main(String[] args) {
 
         // Trouve une solution initial par recherche aléatoire. (contraintes de structure sans contraintes d'indices )
-        SudokuMetadata sudoku = new SudokuMetadata(3,2);
+        SudokuMetadata sudoku = new SudokuMetadata(3,3);
         List<IntVar> initialSolutionVars = new ArrayList<>();
         Model initialModel = SudokuModelConfigHelpers.configureSudoku(sudoku,initialSolutionVars);
         Solver initialSolver = initialModel.getSolver();
@@ -44,8 +47,9 @@ public class MinimalGridGenerator {
         System.out.println("Elapsed Time: "+initialSolutionDuration);
 
         //set the resolution methode
-        //OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
-        OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
+        OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
+        //OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
+        //OptimalSudokuSolver  solver = new IncompleteHeuristicDrivenRandomSearch(sudoku,desiredSolution, Duration.ofSeconds(30));
 
         //use the resolution methode
         List<Integer> solution = solver.solve();

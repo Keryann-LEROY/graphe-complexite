@@ -4,16 +4,20 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.constraints.Propagator;
+import org.chocosolver.solver.search.limits.TimeCounter;
 import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMax;
 import org.chocosolver.solver.search.strategy.selectors.values.IntDomainMin;
 import org.chocosolver.solver.search.strategy.selectors.variables.Random;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
+import utils.SolutionData;
 import utils.SolutionUnicityPropagator;
 import utils.SudokuMetadata;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class CompleteIcrementalSearch implements OptimalSudokuSolver {
@@ -27,10 +31,13 @@ public class CompleteIcrementalSearch implements OptimalSudokuSolver {
     private SudokuMetadata sudoku;
     private List<Integer> desiredSolution;
 
+    private List<SolutionData> solutionsFound= new ArrayList<>();
+
     public CompleteIcrementalSearch(SudokuMetadata sudoku, List<Integer> desiredSolution) {
 
         this.sudoku = sudoku;
         this.desiredSolution = desiredSolution;
+        resetModel(1);
     }
 
     public void resetModel(int maxClues){
@@ -92,9 +99,17 @@ public class CompleteIcrementalSearch implements OptimalSudokuSolver {
         System.out.println("nbFree: " + nbFree);
         System.out.println("nbUndec: " + nbUndec);
         System.out.println(sudoku.arrange(solution, 2, '.'));
+        solutionsFound.add(new SolutionData(nbFixed,solution,Duration,sudoku,desiredSolution));
+
+        solutionsFound.sort(Comparator.comparingInt(SolutionData::getNbClues));
+        solution = solutionsFound.getFirst().getSolution();
 
         End = System.nanoTime();
         Duration = (End - Start) * Math.pow(10, -9);
+
+        for(SolutionData data : solutionsFound){
+            data.setTimeEnd(Duration);
+        }
 
         System.out.println("Solution:");
         System.out.println(sudoku.arrange(solution, 2, '.'));
@@ -102,4 +117,17 @@ public class CompleteIcrementalSearch implements OptimalSudokuSolver {
 
         return solution;
     }
+
+
+    @Override
+    public List<SolutionData> getSolutionData() {
+        return solutionsFound;
+    }
+
+    @Override
+    public void SetTimeLimit(Duration timeLimit) {
+        solver.addStopCriterion(new TimeCounter(solver,timeLimit.toNanos()));
+    }
+
+
 }
