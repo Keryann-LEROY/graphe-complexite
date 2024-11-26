@@ -82,7 +82,7 @@ public class SudokuBenchmark {
         methodes.add(new IncompleteHeuristicDrivenRandomSearch(sudoku,desiredSolution, timelimit));
 
         //LargeNeighborhoodSearch
-        methodes.add(new LargeNeighborhoodSearch(sudoku, desiredSolution));
+        methodes.add(new LargeNeighborhoodSearch(sudoku, desiredSolution,timelimit));
 
 
 
@@ -106,8 +106,8 @@ public class SudokuBenchmark {
     }
 
     public static void main(String[] args) throws IOException {
-        for (int i = 0; i < 20; i++) {
-            test(5,1,Duration.ofSeconds(2));
+        for (int i = 0; i < 100; i++) {
+            test(2,2,Duration.ofSeconds(2));
         }
 
 

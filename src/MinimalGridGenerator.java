@@ -50,7 +50,7 @@ public class MinimalGridGenerator {
         //set the resolution methode
         // OptimalSudokuSolver solver = new CompleteReverseTreeExploration(sudoku,desiredSolution);
         // OptimalSudokuSolver  solver = new CompleteIcrementalSearch(sudoku,desiredSolution);
-        OptimalSudokuSolver solver = new LargeNeighborhoodSearch(sudoku, desiredSolution);
+        OptimalSudokuSolver solver = new LargeNeighborhoodSearch(sudoku, desiredSolution,Duration.ofSeconds(5));
 
         //use the resolution methode
         List<Integer> solution = solver.solve();

@@ -72,15 +72,11 @@ public class IncompleteHeuristicDrivenRandomSearch implements OptimalSudokuSolve
         int minFound=assignmentvars.length;
         resetModel();
         while (System.nanoTime() < ExpirationDate) {
-            //resetModel();
+            resetModel();
             solver.solve();
             if(nbClues.getValue()<minFound) {
                 minFound=nbClues.getValue();
                 solution = solutionUnicityPropagator.applyMask(desiredSolution, assignmentvars);
-                if (!foundSolutions.containsKey(nbClues.getValue())) {
-                    foundSolutions.put(nbClues.getValue(), new ArrayList<>());
-                }
-                foundSolutions.get(nbClues.getValue()).add(solution);
 
                 End = System.nanoTime();
                 Duration = (End - Start) * Math.pow(10, -9);

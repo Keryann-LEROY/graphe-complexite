@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ef69d90-1b6d-4c35-b9b4-c2defc4e5185" name="Changes" comment="solver Sudoku Fonctionnel">
-      <change afterPath="$PROJECT_DIR$/src/Methodes/LargeNeighborhoodSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SudokuBenchmark.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/ColRowGroupOccurenceVariableSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/SolutionData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/SudokuNeighbors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteIcrementalSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Methodes/CompleteReverseTreeExploration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/CompleteReverseTreeExploration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results_2_2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results_3_2.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Methodes/OptimalSudokuSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/OptimalSudokuSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Methodes/LargeNeighborhoodSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methodes/LargeNeighborhoodSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinimalGridGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalGridGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SudokuBenchmark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SudokuBenchmark.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.MinimalGridGenerator.executor": "Run",
+    "Application.MinimalGridGenerator.executor": "Debug",
     "Application.SudokuBenchmark.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
@@ -66,7 +64,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/__Document_Keryann/_M2/GrapheComplexite/graphecomplexite",
+    "last_opened_file_path": "C:/Users/lenovo/Downloads/M2/IA-Graphes/graphe-complexite",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -79,41 +77,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.SudokuBenchmark">
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MinimalGridGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/lenovo/Downloads/M2/IA-Graphes/graphe-complexite&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Methodes" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MinimalGridGenerator">
     <configuration name="MinimalGridGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MinimalGridGenerator" />
       <module name="SudokuProject" />
@@ -130,8 +98,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SudokuBenchmark" />
         <item itemvalue="Application.MinimalGridGenerator" />
+        <item itemvalue="Application.SudokuBenchmark" />
       </list>
     </recent_temporary>
   </component>
@@ -206,8 +174,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Methodes/IncompleteHeuristicDrivenRandomSearch.java</url>
-          <line>89</line>
+          <line>85</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Methodes/LargeNeighborhoodSearch.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/utils/SudokuNeighbors.java</url>
+          <line>57</line>
+          <properties class="utils.SudokuNeighbors" method="isSearchComplete">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
