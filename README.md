@@ -1,4 +1,4 @@
-# Sudoku Solver and Minimal Grid Generator
+# Sudoku Solver et Minimal Grid Generator
 
 Ce projet implémente une application permettant de générer une grille de Sudoku contenant le plus petit ensemble d'indices possible, tout en assurant une solution unique. Il utilise la bibliothèque **Choco Solver** pour résoudre le problème et deux méthodes distinctes d'exploration et d'optimisation.
 
