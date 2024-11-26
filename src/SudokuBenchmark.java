@@ -100,8 +100,6 @@ public class SudokuBenchmark {
             }
         }
 
-
-
         csvOut.close();
     }
 
@@ -109,9 +107,6 @@ public class SudokuBenchmark {
         for (int i = 0; i < 100; i++) {
             test(2,2,Duration.ofSeconds(2));
         }
-
-
-
 
     }
 }
